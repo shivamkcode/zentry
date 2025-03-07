@@ -1,4 +1,4 @@
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
 import { useWindowScroll } from "react-use";
@@ -11,21 +11,21 @@ const NavBar = () => {
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(true);
-  const navContainerRef = useRef(null);
-  const audioElement = useRef(null);
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const audioElement = useRef<HTMLAudioElement>(null);
 
   const { y: currentScrollY } = useWindowScroll();
 
   useEffect(() => {
     if (currentScrollY === 0) {
       setIsNavVisible(true);
-      navContainerRef.current.classList.remove("floating-nav");
+      navContainerRef.current?.classList.remove("floating-nav");
     } else if (currentScrollY > lastScrollY) {
       setIsNavVisible(false);
-      navContainerRef.current.classList.add("floating-nav");
+      navContainerRef.current?.classList.add("floating-nav");
     } else if (currentScrollY < lastScrollY) {
       setIsNavVisible(true);
-      navContainerRef.current.classList.add("floating-nav");
+      navContainerRef.current?.classList.add("floating-nav");
     }
 
     setLastScrollY(currentScrollY)
@@ -47,9 +47,9 @@ const NavBar = () => {
 
   useEffect(() => {
     if (isAudioPlaying) {
-      audioElement.current.play();
+      audioElement.current?.play();
     } else {
-      audioElement.current.pause();
+      audioElement.current?.pause();
     }
   }, [isAudioPlaying]);
 

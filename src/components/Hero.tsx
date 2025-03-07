@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 
-gsap.registerPlugin(ScrollTrigger)
+gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(1);
@@ -14,7 +14,7 @@ const Hero = () => {
   const [loadedVideos, setLoadedVideos] = useState(0);
 
   const totalVideos = 4;
-  const nextVdRef = useRef(null);
+  const nextVdRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoLoad = () => {
     setLoadedVideos((prevVideos) => prevVideos + 1);
@@ -30,7 +30,7 @@ const Hero = () => {
 
   useEffect(() => {
     if (loadedVideos === totalVideos - 1) {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }, [loadedVideos]);
 
@@ -46,7 +46,11 @@ const Hero = () => {
           height: "100%",
           duration: 1,
           ease: "power1.inOut",
-          onStart: () => nextVdRef.current.play(),
+          onStart: () => {
+            if (nextVdRef.current) {
+              nextVdRef.current.play();
+            }
+          },
         });
 
         gsap.from("#current-video", {
