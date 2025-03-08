@@ -13,7 +13,7 @@ const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
-  console.log(loadedVideos)
+  // console.log(loadedVideos)
 
   const totalVideos = 4;
   const nextVdRef = useRef<HTMLVideoElement>(null);
@@ -114,6 +114,7 @@ const Hero = () => {
                 playsInline
                 webkit-playsInline="true"
                 loop
+                onCanPlayThrough={handleVideoLoad}
                 muted
                 id="current-video"
                 className="size-64 origin-center scale-150 object-center object-cover"
