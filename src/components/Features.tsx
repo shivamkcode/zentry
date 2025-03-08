@@ -151,6 +151,8 @@ const Features = () => {
           <BentoTilt className="bento-tilt_2 cursor-grab">
             <video
               src="videos/feature-5.mp4"
+              playsInline
+              webkit-playsInline="true"
               loop
               muted
               autoPlay
