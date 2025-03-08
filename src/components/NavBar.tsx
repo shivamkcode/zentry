@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { SetStateAction, useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
 import { useWindowScroll } from "react-use";
@@ -6,8 +6,12 @@ import gsap from "gsap";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
 
-const NavBar = () => {
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+export interface isPlayingProps {
+  isAudioPlaying: boolean;
+  setIsAudioPlaying: React.Dispatch<SetStateAction<boolean>>
+}
+
+const NavBar = ({isAudioPlaying, setIsAudioPlaying} : isPlayingProps) => {
   const [isIndicatorActive, setIsIndicatorActive] = useState(false);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -39,6 +43,10 @@ const NavBar = () => {
     })
     
   }, [isNavVisible]);
+
+  useEffect(() => {
+    setIsIndicatorActive(isAudioPlaying)
+}, [isAudioPlaying])
 
   const toggleAudioIndicator = () => {
     setIsAudioPlaying(!isAudioPlaying);

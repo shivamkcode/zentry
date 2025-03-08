@@ -4,16 +4,15 @@ import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
+import { isPlayingProps } from "./NavBar";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
+const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
-
-  // console.log(loadedVideos)
 
   const totalVideos = 4;
   const nextVdRef = useRef<HTMLVideoElement>(null);
@@ -26,8 +25,10 @@ const Hero = () => {
 
   const handleMiniVDClick = () => {
     setHasClicked(true);
-
     setCurrentIndex(upcomingVideoIndex);
+    if (!isAudioPlaying) {
+      setIsAudioPlaying(true)
+    }
   };
 
   useEffect(() => {

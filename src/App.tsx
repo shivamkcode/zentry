@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import About from './components/About';
 import Contact from './components/Contact';
 import Features from './components/Features';
@@ -8,10 +9,12 @@ import Story from './components/Story';
 import './index.css';
 
 const App = () => {
+  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
+
   return (
     <main className="relative w-full overflow-x-hidden">
-      <NavBar />
-      <Hero />
+      <NavBar isAudioPlaying={isAudioPlaying} setIsAudioPlaying={setIsAudioPlaying} />
+      <Hero isAudioPlaying={isAudioPlaying} setIsAudioPlaying={setIsAudioPlaying} />
       <About />
       <Features />
       <Story />
