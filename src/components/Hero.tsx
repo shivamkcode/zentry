@@ -109,6 +109,8 @@ const Hero = () => {
               <video
                 ref={nextVdRef}
                 src={getVideoSrc(upcomingVideoIndex)}
+                playsInline
+                webkit-playsInline="true"
                 loop
                 muted
                 id="current-video"
@@ -121,6 +123,8 @@ const Hero = () => {
           <video
             ref={nextVdRef}
             src={getVideoSrc(currentIndex)}
+            playsInline
+            webkit-playsInline="true"
             loop
             muted
             id="next-video"
@@ -130,6 +134,8 @@ const Hero = () => {
 
           <video
             src={getVideoSrc(currentIndex)}
+            playsInline
+            webkit-playsInline="true"
             autoPlay
             loop
             muted

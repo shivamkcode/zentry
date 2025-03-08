@@ -30,7 +30,7 @@ const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
 
     const newTrasform = `perspective(700px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) scale3d(0.98,0.98,0.98) `;
 
-    setTransformStyle(newTrasform)
+    setTransformStyle(newTrasform);
   };
   const handleMouseLeave = () => {
     setTransformStyle("");
@@ -51,9 +51,11 @@ const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
 
 const BentoCard = ({ src, title, description }: BentoCardProps) => {
   return (
-    <div className="relative size-full">
+    <div className="relative size-full cursor-grab">
       <video
         src={src}
+        playsInline
+        webkit-playsInline="true"
         loop
         muted
         autoPlay
@@ -138,7 +140,7 @@ const Features = () => {
           </BentoTilt>
 
           <BentoTilt className="bento-tilt_2">
-            <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
+            <div className="flex size-full flex-col justify-between bg-violet-300 p-5 cursor-grab">
               <h1 className="bento-title special-font max-w-64 text-black">
                 M<b>o</b>re co<b>m</b>ing s<b>o</b>on!
               </h1>
@@ -146,7 +148,7 @@ const Features = () => {
             </div>
           </BentoTilt>
 
-          <BentoTilt className="bento-tilt_2">
+          <BentoTilt className="bento-tilt_2 cursor-grab">
             <video
               src="videos/feature-5.mp4"
               loop
