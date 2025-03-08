@@ -31,9 +31,16 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (loadedVideos > 1) {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+  
+    if (loadedVideos === 3) {
+      clearTimeout(timer);
       setIsLoading(false);
     }
+  
+    return () => clearTimeout(timer);
   }, [loadedVideos]);
 
   useGSAP(
@@ -114,7 +121,6 @@ const Hero = () => {
                 playsInline
                 webkit-playsInline="true"
                 loop
-                onCanPlayThrough={handleVideoLoad}
                 muted
                 id="current-video"
                 className="size-64 origin-center scale-150 object-center object-cover"
