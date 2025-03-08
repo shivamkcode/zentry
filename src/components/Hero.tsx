@@ -17,7 +17,6 @@ const Hero = () => {
 
   const totalVideos = 4;
   const nextVdRef = useRef<HTMLVideoElement>(null);
-  const currentVdRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoLoad = () => {
     setLoadedVideos((prevVideos) => prevVideos + 1);
@@ -32,7 +31,7 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (loadedVideos === 2) {
+    if (loadedVideos > 1) {
       setIsLoading(false);
     }
   }, [loadedVideos]);
@@ -110,7 +109,7 @@ const Hero = () => {
               className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
             >
               <video
-                ref={currentVdRef}
+                ref={nextVdRef}
                 src={getVideoSrc(upcomingVideoIndex)}
                 playsInline
                 webkit-playsInline="true"
