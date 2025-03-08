@@ -7,12 +7,12 @@ interface BentoCardProps {
   description?: string;
 }
 
-interface BentoTiltProps {
+export interface BentoTiltProps {
   children: ReactNode;
   className: string;
 }
 
-const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
+export const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
   const [transformStyle, setTransformStyle] = useState("");
   const itemRef = useRef<HTMLDivElement>(null);
 
@@ -51,7 +51,7 @@ const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
 
 const BentoCard = ({ src, title, description }: BentoCardProps) => {
   return (
-    <div className="relative size-full cursor-grab">
+    <div className="relative size-full cursor-gra">
       <video
         src={src}
         playsInline
@@ -70,6 +70,10 @@ const BentoCard = ({ src, title, description }: BentoCardProps) => {
             </p>
           )}
         </div>
+        <button className="bg-black flex flex-row items-center justify-center rounded-full h-10 w-48 gap-3 cursor-grab border border-violet-50/30">
+          <TiLocationArrow className="size-6 opacity-50" />
+          <p className="opacity-50 font-general font-bold uppercase">Coming soon</p>
+        </button>
       </div>
     </div>
   );
@@ -90,7 +94,7 @@ const Features = () => {
           </p>
         </div>
 
-        <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
+        <BentoTilt className="border-hsla relative mb-7 h-[85vw] w-full overflow-hidden rounded-md md:h-[40vw]">
           <BentoCard
             src="videos/feature-1.mp4"
             title={
@@ -102,8 +106,8 @@ const Features = () => {
           />
         </BentoTilt>
 
-        <div className="grid h-[135vh] grid-cols-2 grid-rows-3 gap-7">
-          <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
+        <div className="flex flex-col md:grid h-full grid-cols-2 grid-rows-3 gap-7">
+          <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2 w-[70vw] h-[80vh] md:h-full md:w-full">
             <BentoCard
               src="videos/feature-2.mp4"
               title={
@@ -115,7 +119,7 @@ const Features = () => {
             />
           </BentoTilt>
 
-          <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
+          <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0 h-[50vh] md:h-full">
             <BentoCard
               src="videos/feature-3.mp4"
               title={
@@ -127,7 +131,7 @@ const Features = () => {
             />
           </BentoTilt>
 
-          <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
+          <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0 h-[40vh] md:h-full">
             <BentoCard
               src="videos/feature-4.mp4"
               title={
@@ -139,7 +143,7 @@ const Features = () => {
             />
           </BentoTilt>
 
-          <BentoTilt className="bento-tilt_2">
+          <BentoTilt className="bento-tilt_2 h-[40vw] w-[60vw] self-end md:h-full md:w-full">
             <div className="flex size-full flex-col justify-between bg-violet-300 p-5 cursor-grab">
               <h1 className="bento-title special-font max-w-64 text-black">
                 M<b>o</b>re co<b>m</b>ing s<b>o</b>on!
@@ -148,7 +152,7 @@ const Features = () => {
             </div>
           </BentoTilt>
 
-          <BentoTilt className="bento-tilt_2 cursor-grab">
+          <BentoTilt className="bento-tilt_2 cursor-grab w-[65vw] md:w-full">
             <video
               src="videos/feature-5.mp4"
               playsInline

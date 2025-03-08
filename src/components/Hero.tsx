@@ -8,7 +8,15 @@ import { isPlayingProps } from "./NavBar";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
+const headings = [
+  "",
+  "G<b>a</b>ming",
+  "Ide<b>n</b>tity",
+  "Re<b>a</b>lity",
+  "Ag<b>e</b>ntic Ai",
+];
+
+const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -27,7 +35,7 @@ const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
     setHasClicked(true);
     setCurrentIndex(upcomingVideoIndex);
     if (!isAudioPlaying) {
-      setIsAudioPlaying(true)
+      setIsAudioPlaying(true);
     }
   };
 
@@ -35,12 +43,12 @@ const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 3000);
-  
+
     if (loadedVideos === 3) {
       clearTimeout(timer);
       setIsLoading(false);
     }
-  
+
     return () => clearTimeout(timer);
   }, [loadedVideos]);
 
@@ -111,7 +119,7 @@ const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
         className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
+          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg hover:animation-scale">
             <div
               onClick={handleMiniVDClick}
               className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
@@ -154,9 +162,10 @@ const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
           />
         </div>
 
-        <h1 className="hero-heading special-font absolute bottom-5 right-5 z-40 text-blue-75">
-          G<b>a</b>ming
-        </h1>
+        <h1
+          className="hero-heading special-font absolute bottom-5 right-5 z-40 text-blue-75"
+          dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
+        />
 
         <div className="absolute left-0 top-0 z-40 size-full">
           <div className="mt-24 px-5 sm:px-10">
@@ -178,9 +187,10 @@ const Hero = ({isAudioPlaying, setIsAudioPlaying}: isPlayingProps) => {
         </div>
       </div>
 
-      <h1 className="hero-heading absolute bottom-5 right-5 text-black">
-        G<b className="special-font">a</b>ming
-      </h1>
+      <h1
+        className="hero-heading special-font absolute bottom-5 right-5 text-black"
+        dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
+      />
     </div>
   );
 };
