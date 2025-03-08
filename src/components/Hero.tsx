@@ -13,10 +13,10 @@ const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
 
+  console.log(loadedVideos)
+
   const totalVideos = 4;
-  const currentVdRef = useRef<HTMLVideoElement>(null);
   const nextVdRef = useRef<HTMLVideoElement>(null);
-  const mainVdRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoLoad = () => {
     setLoadedVideos((prevVideos) => prevVideos + 1);
@@ -26,38 +26,15 @@ const Hero = () => {
 
   const handleMiniVDClick = () => {
     setHasClicked(true);
+
     setCurrentIndex(upcomingVideoIndex);
   };
 
   useEffect(() => {
-    if (loadedVideos === 3) {
+    if (loadedVideos > 1) {
       setIsLoading(false);
     }
   }, [loadedVideos]);
-
-  useEffect(() => {
-    if (currentVdRef.current) {
-      currentVdRef.current.addEventListener('canplaythrough', handleVideoLoad);
-    }
-    if (nextVdRef.current) {
-      nextVdRef.current.addEventListener('canplaythrough', handleVideoLoad);
-    }
-    if (mainVdRef.current) {
-      mainVdRef.current.addEventListener('canplaythrough', handleVideoLoad);
-    }
-
-    return () => {
-      if (currentVdRef.current) {
-        currentVdRef.current.removeEventListener('canplaythrough', handleVideoLoad);
-      }
-      if (nextVdRef.current) {
-        nextVdRef.current.removeEventListener('canplaythrough', handleVideoLoad);
-      }
-      if (mainVdRef.current) {
-        mainVdRef.current.removeEventListener('canplaythrough', handleVideoLoad);
-      }
-    };
-  }, []);
 
   useGSAP(
     () => {
@@ -132,14 +109,15 @@ const Hero = () => {
               className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
             >
               <video
-                ref={currentVdRef}
+                ref={nextVdRef}
                 src={getVideoSrc(upcomingVideoIndex)}
                 playsInline
-                web-kitPlaysInline
+                webkit-playsInline="true"
                 loop
                 muted
                 id="current-video"
                 className="size-64 origin-center scale-150 object-center object-cover"
+                onLoadedData={() => handleVideoLoad()}
               />
             </div>
           </div>
@@ -148,22 +126,23 @@ const Hero = () => {
             ref={nextVdRef}
             src={getVideoSrc(currentIndex)}
             playsInline
-            web-kitPlaysInline
+            webkit-playsInline="true"
             loop
             muted
             id="next-video"
             className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
+            onLoadedData={() => handleVideoLoad()}
           />
 
           <video
-            ref={mainVdRef}
             src={getVideoSrc(currentIndex)}
             playsInline
-            web-kitPlaysInline
+            webkit-playsInline="true"
             autoPlay
             loop
             muted
             className="absolute left-0 top-0 size-full object-cover object-center"
+            onLoadedData={() => handleVideoLoad()}
           />
         </div>
 
