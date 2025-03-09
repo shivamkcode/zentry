@@ -163,7 +163,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
         </div>
 
         <h1
-          className="hero-heading special-font absolute bottom-5 right-5 z-40 text-blue-75"
+          className="hero-heading special-font absolute bottom-5 right-5 z-40  text-blue-75"
           dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
         />
 

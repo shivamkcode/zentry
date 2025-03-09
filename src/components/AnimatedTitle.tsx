@@ -23,9 +23,10 @@ const AnimatedTitle = ({ title, containerClass }: Props) => {
 
             titleAnimation.to('.animated-word', {
                 opacity: 1,
+                duration: 1.5,
                 transform: 'translate3d(0,0,0) rotateY(0deg) rotateX(0deg)',
                 ease: 'power1.inOut',
-                stagger: 0.02
+                stagger: 0.03
             })
         }, containerRef)
         

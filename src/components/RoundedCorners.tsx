@@ -1,7 +1,7 @@
 const RoundedCorners = () => {
   return (
     <svg
-      className="invisible absolute size-0"
+      className="invisible absolute size-0 inset-1  "
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>

@@ -1,3 +1,5 @@
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 import { MouseEvent, ReactNode, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 
@@ -36,13 +38,28 @@ export const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
     setTransformStyle("");
   };
 
+  useGSAP(() => {
+    if (itemRef.current) {
+      gsap.from(itemRef.current, {
+        rotationX: 50,
+        ease: "power1.in",
+        scrollTrigger: {
+          trigger: itemRef.current,
+          start: "top 100%",
+          end: "top 70%",
+          scrub: true,
+        },
+      });
+    }
+  });
+
   return (
     <div
       ref={itemRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={{ transform: transformStyle }}
-      className={className}
+      className={`${className} bento`}
     >
       {children}
     </div>
@@ -51,7 +68,7 @@ export const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
 
 const BentoCard = ({ src, title, description }: BentoCardProps) => {
   return (
-    <div className="relative size-full cursor-gra">
+    <div className="relative size-full cursor-grab">
       <video
         src={src}
         playsInline
@@ -72,7 +89,9 @@ const BentoCard = ({ src, title, description }: BentoCardProps) => {
         </div>
         <button className="bg-black flex flex-row items-center justify-center rounded-full h-10 w-48 gap-3 cursor-grab border border-violet-50/30">
           <TiLocationArrow className="size-6 opacity-50" />
-          <p className="opacity-50 font-general font-bold uppercase">Coming soon</p>
+          <p className="opacity-50 font-general font-bold uppercase">
+            Coming soon
+          </p>
         </button>
       </div>
     </div>

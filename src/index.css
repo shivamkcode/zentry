@@ -52,7 +52,6 @@ body {
 
 @utility mask-clip-path {
   clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-  /* clip-path: path('M 10,0 Q 5,5 0,10 L 0,60 Q 5,65 10,70 L 60,70 Q 65,65 70,60 L 70,10 Q 65,5 60,0 Z'); */
 }
 
 @utility special-font {
@@ -72,24 +71,17 @@ body {
 }
 
 @utility animated-title {
-  @apply flex flex-col gap-1 text-7xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
+  @apply flex flex-col gap-1 text-6xl uppercase leading-[.8] text-white sm:px-32 md:text-[6rem];
 }
 
 @utility hero-heading {
-  @apply uppercase font-zentry font-black text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[160px];
+  @apply uppercase font-zentry font-black text-7xl sm:right-10 md:text-9xl lg:text-[160px];
 }
 
 @utility animated-word {
   @apply special-font font-black opacity-0;
   transform-origin: 50% 50% -150px !important;
-  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
-  will-change: opacity, transform;
-}
-
-@utility bento-tilt {
-  @apply special-font font-black opacity-0;
-  transform-origin: 50% 50% -150px !important;
-  transform: translate3d(10px, 51px, -60px) rotateY(60deg) rotateX(-40deg);
+  transform: translate3d(-10px, 51px, -600px) rotateY(-70deg) rotateX(-140deg);
   will-change: opacity, transform;
 }
 
@@ -111,8 +103,8 @@ body {
 }
 
 @utility story-img-mask {
-  @apply absolute left-0 top-0 size-full overflow-hidden md:left-[20%] md:top-[-10%] md:size-4/5;
-  clip-path: polygon(4% 0, 83% 21%, 100% 73%, 0% 100%);
+  @apply absolute size-full overflow-hidden left-[20%] top-[-20%] md:top-[-10%];
+  clip-path: polygon(4% 0%, 53% 15%, 70% 73%, 8% 90%);
 }
 
 @utility story-img-content {
