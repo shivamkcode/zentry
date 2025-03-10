@@ -6,12 +6,14 @@ import gsap from "gsap";
 const ImageClipBox = ({
   src,
   clipClass,
+  id = ""
 }: {
   src: string;
   clipClass: string;
+  id?: string;
 }) => {
   return (
-    <div className={clipClass}>
+    <div id={id} className={clipClass}>
       <img src={src} alt="" />
     </div>
   );
@@ -30,17 +32,18 @@ const Contact = () => {
       },
     });
 
-    // gsap.from('#swordsman', {
-    //   y: -200,
-    //   opacity: 0,
-    //   scrollTrigger:{
-    //     trigger: "#swordsman",
-    //     start: "top 100%",
-    //     end: "top 60%",
-    //     scrub: true,
-    //     markers: true
-    //   }
-    // })
+    gsap.from('#swordsman', {
+      y: 200,
+      opacity: 0,
+      duration: 1,
+      scrollTrigger:{
+        trigger: "#contact",
+        start: "top 100%",
+        end: "top 80%",
+        scrub: 2,
+        markers: true
+      }
+    })
   })
 
   return (
@@ -57,12 +60,13 @@ const Contact = () => {
           />
         </div>
 
-        <div id="swordsman" className="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80">
+        <div id="swordsmanContainer" className="absolute -top-40 left-20 w-60 sm:top-1/2 md:left-auto md:right-10 lg:top-20 lg:w-80">
           <ImageClipBox
             src="img/swordman-partial.webp"
-            clipClass={"absolute md:scale-125"}
+            clipClass={"absolute md:hidden"}
           />
           <ImageClipBox
+            id="swordsman"
             src="img/swordman.webp"
             clipClass={"sword-man-clip-path md:scale-125"}
           />
