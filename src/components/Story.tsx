@@ -71,7 +71,7 @@ const Story = () => {
 
   return (
     <section id="story" className="w-screen bg-black text-blue-50">
-      <div className="flex flex-col items-center py-10 pb-24 size-full">
+      <div className="flex flex-col items-center py-10 pb-24 size-full justify-evenly">
         <p id="multi" className="font-general text-sm uppercase md:text-[10px]">
           The multiverse ip world
         </p>
@@ -103,7 +103,7 @@ const Story = () => {
           </div>
         </div>
 
-        <div className="flex w-full justify-center -mt-28 md:me-44 md:justify-end">
+        <div className="flex w-full justify-center md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
             <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
               The Open IP Universe The story of a hidden realm Where realms

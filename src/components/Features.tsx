@@ -43,11 +43,12 @@ export const BentoTilt = ({ children, className = "" }: BentoTiltProps) => {
       gsap.from(itemRef.current, {
         rotationX: 50,
         ease: "power1.in",
+        delay: 1,
         scrollTrigger: {
           trigger: itemRef.current,
           start: "top 100%",
           end: "top 70%",
-          scrub: true,
+          scrub: 0.8,
         },
       });
     }
