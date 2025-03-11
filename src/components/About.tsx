@@ -15,9 +15,9 @@ const About = () => {
     const clipAnimation = gsap.timeline({
       scrollTrigger: {
         trigger: "#clip",
-        start: "top top",
+        start: "top 10%",
         end: "+=800 center",
-        scrub: 0.9,
+        scrub: true,
         pin: true,
         pinSpacing: true,
       },
@@ -26,7 +26,7 @@ const About = () => {
     clipAnimation.to(".mask-clip-path, .clip-border", {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       width: "100vw",
-      height: "120vh",
+      height: "100vh",
     });
 
     gsap.from("#clip", {
@@ -89,7 +89,7 @@ const About = () => {
       id="about"
       ref={itemRef}
       onMouseMove={handleMouseMove}
-      className="min-h-screen w-screen mb-[20vh]"
+      className="min-h-screen w-screen"
     >
       <div className="relative mb-8 mt-36 flex flex-col gap-5 items-center">
         <h2
@@ -120,7 +120,7 @@ const About = () => {
         <div className="story-img-container">
           <div
             style={{ transform: transformStyle }}
-            className="mask-clip-path absolute left-1/2 top-10 z-20 h-80 md:h-96 w-64 md:w-72 lg:w-80 -translate-x-1/2 ease-out duration-300"
+            className="mask-clip-path absolute left-1/2 z-20 h-80 md:h-96 w-64 md:w-72 lg:w-80 -translate-x-1/2 ease-out duration-300"
           >
             <div className="about-image">
               <img
@@ -135,7 +135,7 @@ const About = () => {
           <div className="story-img-container">
             <div
               style={{ transform: transformStyle  }}
-              className="clip-border left-1/2 -translate-x-1/2 bg-black absolute h-[322px] w-[258px] md:h-[386px] md:w-[290px] lg:w-[322px] top-10 ease-out duration-300"
+              className="clip-border left-1/2 -translate-x-1/2 bg-black absolute h-[322px] w-[258px] md:h-[386px] md:w-[290px] lg:w-[322px] ease-out duration-300"
             />
           </div>
         </div>
