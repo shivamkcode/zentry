@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import AnimatedTitle from "./AnimatedTitle";
 import { MouseEvent, useRef, useState } from "react";
+import RoundedCorners from "./RoundedCorners";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,7 +16,7 @@ const About = () => {
     const clipAnimation = gsap.timeline({
       scrollTrigger: {
         trigger: "#clip",
-        start: "top 10%",
+        start: "top top",
         end: "+=800 center",
         scrub: true,
         pin: true,
@@ -23,10 +24,15 @@ const About = () => {
       },
     });
 
-    clipAnimation.to(".mask-clip-path, .clip-border", {
+    clipAnimation.to(".clip-border", {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       width: "100vw",
       height: "100vh",
+      filter: 'none'
+    });
+
+    clipAnimation.to(".story-img-container", {
+      filter: 'none'
     });
 
     gsap.from("#clip", {
@@ -120,7 +126,7 @@ const About = () => {
         <div className="story-img-container">
           <div
             style={{ transform: transformStyle }}
-            className="mask-clip-path absolute left-1/2 z-20 h-80 md:h-96 w-64 md:w-72 lg:w-80 -translate-x-1/2 ease-out duration-300"
+            className="clip-border absolute left-1/2 z-20 h-80 md:h-96 w-64 md:w-72 lg:w-80 -translate-x-1/2 ease-out duration-300"
           >
             <div className="about-image">
               <img
@@ -130,13 +136,15 @@ const About = () => {
               />
             </div>
           </div>
+          <RoundedCorners />
         </div>
         <div className="absolute -top-[1px] left-1/2 -translate-x-1/2 -z-10">
           <div className="story-img-container">
             <div
-              style={{ transform: transformStyle  }}
+              style={{ transform: transformStyle }}
               className="clip-border left-1/2 -translate-x-1/2 bg-black absolute h-[322px] w-[258px] md:h-[386px] md:w-[290px] lg:w-[322px] ease-out duration-300"
             />
+            <RoundedCorners />
           </div>
         </div>
       </div>

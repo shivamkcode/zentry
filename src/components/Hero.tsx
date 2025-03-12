@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { MouseEvent, useEffect, useRef, useState } from "react";
 import Button from "./Button";
 import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { isPlayingProps } from "./NavBar";
+import RoundedCorners from "./RoundedCorners";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,11 +17,32 @@ const headings = [
   "Ag<b>e</b>ntic Ai",
 ];
 
+const splitAndPreserveTags = (str: string) => {
+  const parts = str.split(/(<b>.*?<\/b>)/g); // Split by <b> tags
+  return parts.map((part, index) => {
+    if (part.startsWith("<b>") && part.endsWith("</b>")) {
+      return (
+        <b key={index} className="hero-text">
+          {part.slice(3, -4)}
+        </b>
+      );
+    }
+    return part.split("").map((char, charIndex) => (
+      <span className="hero-text" key={`${index}-${charIndex}`}>
+        {char}
+      </span>
+    ));
+  });
+};
+
 const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
+  const [transformStyle, setTransformStyle] = useState("");
+  const itemRef = useRef<HTMLDivElement>(null);
+  const [lastVid, setLastVid] = useState(currentIndex);
 
   const totalVideos = 4;
   const nextVdRef = useRef<HTMLVideoElement>(null);
@@ -37,7 +59,14 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
     if (!isAudioPlaying) {
       setIsAudioPlaying(true);
     }
+    setTransformStyle("");
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLastVid(currentIndex);
+    }, 500);
+  }, [currentIndex]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -62,7 +91,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
           scale: 1,
           width: "100%",
           height: "100%",
-          duration: 1,
+          duration: 0.8,
           ease: "power1.inOut",
           onStart: () => {
             if (nextVdRef.current) {
@@ -71,11 +100,18 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
           },
         });
 
-        gsap.from("#current-video", {
+        gsap.from("#current-video, #hero-border", {
           transformOrigin: "center center",
           scale: 0,
-          duration: 1,
+          duration: 1.5,
           ease: "power1.inOut",
+        });
+
+        gsap.from(".hero-text", {
+          y: 50,
+          opacity: 0,
+          duration: 1,
+          stagger: 0.1,
         });
       }
     },
@@ -99,14 +135,66 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
         scrub: true,
       },
     });
+
+    gsap.to(".mask-clip-path", {
+      scale: 0,
+      ease: "power1.inOut",
+      scrollTrigger: {
+        trigger: "#video-frame",
+        start: "center center",
+        end: "bottom center",
+        scrub: true,
+      },
+    });
+
+    gsap.from(".hero-text", {
+      y: 50,
+      opacity: 0,
+      duration: 2,
+      stagger: 0.1,
+    });
   });
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!itemRef.current) return;
+
+    const { left, top, width, height } =
+      itemRef.current.getBoundingClientRect();
+
+    const relativeX = (e.clientX - left) / width;
+    const relativeY = (e.clientY - top) / height;
+
+    const tiltX = (relativeX - 0.5) * 20;
+    const tiltY = (relativeY - 0.5) * -20;
+
+    const newTrasform = `perspective(200px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
+
+    setTransformStyle(newTrasform);
+  };
+
+  const handleMouseEnter = () => {
+    gsap.to(".mask-clip-path", {
+      scale: 1,
+      ease: "power1.inOut",
+      duration: 2,
+    });
+  };
+
+  const handleMouseLeave = () => {
+    gsap.to(".mask-clip-path", {
+      scale: 0,
+      ease: "power1.inOut",
+      duration: 2,
+      delay: 0.5
+    });
+  };
 
   const getVideoSrc = (index: number) => `videos/hero-${index}.mp4`;
 
   return (
-    <div className="relative h-dvh w-screen overflow-x-hidden">
+    <>
       {isLoading && (
-        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-400">
           <div className="three-body">
             <div className="three-body__dot" />
             <div className="three-body__dot" />
@@ -114,84 +202,118 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
           </div>
         </div>
       )}
-      <div
-        id="video-frame"
-        className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
-      >
-        <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg hover:animation-scale">
+      <div className="relative h-dvh w-screen overflow-x-hidden">
+        <div
+          id="video-frame"
+          className="relative z-10 h-dvh w-screen overflow-hidden"
+        >
+          <div>
             <div
-              onClick={handleMiniVDClick}
-              className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
+              onMouseMove={handleMouseMove}
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              ref={itemRef}
+              className="absolute-center z-[100] w-[60vw] h-[60vh] origin-center overflow-hidden  cursor-pointer"
             >
-              <video
-                ref={nextVdRef}
-                src={getVideoSrc(upcomingVideoIndex)}
-                playsInline
-                webkit-playsInline="true"
-                loop
-                muted
-                id="current-video"
-                className="size-64 origin-center scale-150 object-center object-cover"
-                onLoadedData={() => handleVideoLoad()}
+              <div className="relative transition-all duration-500 ease-in hover:animation-scale cursor-pointer size-full">
+                <div
+                  onClick={handleMiniVDClick}
+                  style={{ transform: transformStyle }}
+                  className="absolute-center z-40 size-28 md:size-60 filter-[url(#flt_tag)]"
+                >
+                  <div className="size-28 mask-clip-path sm:scale-0 md:size-60">
+                    <video
+                      ref={nextVdRef}
+                      src={getVideoSrc(upcomingVideoIndex)}
+                      playsInline
+                      webkit-playsInline="true"
+                      loop
+                      muted
+                      id="current-video"
+                      className="object-cover size-full"
+                      onLoadedData={() => handleVideoLoad()}
+                    />
+                  </div>
+                  <RoundedCorners />
+                </div>
+                <div
+                  style={{ transform: transformStyle }}
+                  className="absolute-center z-30 filter-[url(#flt_tag)]"
+                >
+                  <div
+                    id="hero-border"
+                    className="mask-clip-path sm:scale-0 origin-center bg-black size-[115px] md:size-[243px]"
+                  />
+                  <RoundedCorners />
+                </div>
+              </div>
+            </div>
+
+            <video
+              ref={nextVdRef}
+              src={getVideoSrc(currentIndex)}
+              playsInline
+              webkit-playsInline="true"
+              loop
+              muted
+              id="next-video"
+              className="absolute-center invisible z-20 size-28 md:size-60 object-cover object-center rounded-lg"
+              onLoadedData={() => handleVideoLoad()}
+            />
+
+            <div className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75">
+              {splitAndPreserveTags(headings[currentIndex])}
+            </div>
+            {/* <h1
+              id="hero-text"
+              className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75"
+              dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
+            /> */}
+
+            <video
+              src={getVideoSrc(lastVid)}
+              playsInline
+              webkit-playsInline="true"
+              autoPlay
+              loop
+              muted
+              id="main-video"
+              className="absolute left-0 top-0 size-full object-cover object-center"
+              onLoadedData={() => handleVideoLoad()}
+            />
+          </div>
+
+          {/* <h1
+            className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75"
+            dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
+          /> */}
+
+          <div className="absolute left-0 top-0 z-50">
+            <div className="mt-24 px-5 sm:px-10">
+              <h1 className="hero-heading text-blue-100 special-font">
+                redefi<b>n</b>e
+              </h1>
+
+              <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
+                Enter the Metagame Layer <br /> Unleash the Play Economy
+              </p>
+
+              <Button
+                id="watch-trailer"
+                title="Watch Trailer"
+                leftIcon={<TiLocationArrow />}
+                containerClass="bg-yellow-300 flex-center gap-1"
               />
             </div>
           </div>
-
-          <video
-            ref={nextVdRef}
-            src={getVideoSrc(currentIndex)}
-            playsInline
-            webkit-playsInline="true"
-            loop
-            muted
-            id="next-video"
-            className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
-            onLoadedData={() => handleVideoLoad()}
-          />
-
-          <video
-            src={getVideoSrc(currentIndex)}
-            playsInline
-            webkit-playsInline="true"
-            autoPlay
-            loop
-            muted
-            className="absolute left-0 top-0 size-full object-cover object-center"
-            onLoadedData={() => handleVideoLoad()}
-          />
         </div>
 
         <h1
-          className="hero-heading special-font absolute bottom-5 right-5 z-40  text-blue-75"
+          className="hero-heading special-font absolute bottom-5 right-5 text-black"
           dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
         />
-
-        <div className="absolute left-0 top-0 z-40 size-full">
-          <div className="mt-24 px-5 sm:px-10">
-            <h1 className="hero-heading text-blue-100 special-font">
-              redefi<b>n</b>e
-            </h1>
-
-            <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
-              Enter the Metagame Layer <br /> Unleash the Play Economy
-            </p>
-
-            <Button
-              id="watch-trailer"
-              title="Watch Trailer"
-              leftIcon={<TiLocationArrow />}
-              containerClass="bg-yellow-300 flex-center gap-1"
-            />
-          </div>
-        </div>
       </div>
-
-      <h1
-        className="hero-heading special-font absolute bottom-5 right-5 text-black"
-        dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
-      />
-    </div>
+    </>
   );
 };
 

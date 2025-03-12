@@ -51,9 +51,9 @@ body {
 }
 
 @utility mask-clip-path {
-  /* clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); */
-  clip-path: polygon(6% 0%, 82% 8%, 92% 98%, 7% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
 }
+
 
 @utility clip-border {
   clip-path: polygon(6% 0%, 82% 8%, 92% 98%, 7% 100%);
