@@ -20,7 +20,6 @@ const About = () => {
         end: "+=800 center",
         scrub: true,
         pin: true,
-        pinSpacing: true,
       },
     });
 
@@ -28,10 +27,9 @@ const About = () => {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       width: "100vw",
       height: "100vh",
-      filter: 'none'
     });
 
-    clipAnimation.to(".story-img-container", {
+    clipAnimation.to(".about", {
       filter: 'none'
     });
 
@@ -123,10 +121,10 @@ const About = () => {
           className="absolute left-1/2 -translate-x-1/2 z-50 top-1/4 scale-[250%] md:scale-[175%] lg:scale-125 lg:-translate-y-1/4 ease-out duration-1000"
           alt="stones"
         />
-        <div className="story-img-container">
+        <div className="about relative md:h-dvh h-[40vh] w-full filter-[url(#flt_tag)]">
           <div
             style={{ transform: transformStyle }}
-            className="clip-border absolute left-1/2 z-20 h-80 md:h-96 w-64 md:w-72 lg:w-80 -translate-x-1/2 ease-out duration-300"
+            className="clip-border absolute left-1/2 z-20 h-80 md:h-96 w-64 md:w-72 lg:w-80 -translate-x-1/2"
           >
             <div className="about-image">
               <img
@@ -139,10 +137,10 @@ const About = () => {
           <RoundedCorners />
         </div>
         <div className="absolute -top-[1px] left-1/2 -translate-x-1/2 -z-10">
-          <div className="story-img-container">
+          <div className="about relative md:h-dvh h-[40vh] w-full filter-[url(#flt_tag)]">
             <div
               style={{ transform: transformStyle }}
-              className="clip-border left-1/2 -translate-x-1/2 bg-black absolute h-[322px] w-[258px] md:h-[386px] md:w-[290px] lg:w-[322px] ease-out duration-300"
+              className="clip-border left-1/2 -translate-x-1/2 bg-black absolute h-[322px] w-[258px] md:h-[386px] md:w-[290px] lg:w-[322px]"
             />
             <RoundedCorners />
           </div>

@@ -14,16 +14,22 @@ const Button = ({ title, id, rightIcon, leftIcon, containerClass }: Props) => {
   const handleMouseEnter = () => {
     gsap.to(`#${id}`, {
       clipPath: "polygon(5% 5%, 95% 10%, 97% 100%, 6% 100%)",
-      // filter: "url(#flt_tag)",
       padding: "12px auto",
       duration: 0.2,
       borderRadius: 0,
       ease: "bounce-in",
     });
 
+    gsap.set(`#${id} span`, {
+      y: 0,
+      opacity: 1,
+    });
+
     gsap.from(`#${id} span`, {
       y: 20,
+      opacity: 0,
       duration: 0.3,
+      ease: "power1.inOut",
     });
   };
 
@@ -36,14 +42,21 @@ const Button = ({ title, id, rightIcon, leftIcon, containerClass }: Props) => {
       ease: "power4.in",
     });
 
+    gsap.set(`#${id} span`, {
+      y: 0,
+      opacity: 1,
+    });
+
     gsap.from(`#${id} span`, {
       y: -20,
-      duration: 0.4,
+      opacity: 0,
+      duration: 0.3,
+      ease: "power1.inOut",
     });
   };
 
   return (
-    <div className="filter-[url(#flt_tag)]">
+    <div className="filter-[url(#flt_tag)] h-10">
       <button
         id={id}
         onMouseEnter={handleMouseEnter}
@@ -52,7 +65,7 @@ const Button = ({ title, id, rightIcon, leftIcon, containerClass }: Props) => {
         className={`relative z-10 cursor-pointer opacity-100 rounded-full font-medium bg-violet-50 px-5 py-2 text-black ${containerClass}`}
       >
         <span>{leftIcon}</span>
-        <span className="relative font-general text-sm uppercase">{title}</span>
+        <span className="font-general text-sm uppercase">{title}</span>
         <span>{rightIcon}</span>
       </button>
       <RoundedCorners />

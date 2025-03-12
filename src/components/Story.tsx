@@ -103,7 +103,7 @@ const Story = () => {
           </div>
         </div>
 
-        <div className="flex w-full justify-center md:me-44 md:justify-end">
+        <div className="flex w-full h-fit justify-center md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
             <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
               The Open IP Universe The story of a hidden realm Where realms

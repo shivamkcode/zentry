@@ -57,7 +57,7 @@ body {
 
 @utility clip-border {
   clip-path: polygon(6% 0%, 82% 8%, 92% 98%, 7% 100%);
-  filter: url("#flt_tag");
+  /* filter: url("#flt_tag"); */
 }
 
 @utility special-font {
@@ -297,5 +297,5 @@ body {
   --color-blue-200: #010101;
   --color-blue-300: #4fb7dd;
   --color-violet-300: #5724ff;
-  --color-yellow-100: #8e983f;
+  --color-yellow-100: #edff66;
 }

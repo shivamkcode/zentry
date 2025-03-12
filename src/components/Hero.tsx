@@ -103,7 +103,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
         gsap.from("#current-video, #hero-border", {
           transformOrigin: "center center",
           scale: 0,
-          duration: 1.5,
+          duration: 2,
           ease: "power1.inOut",
         });
 
@@ -167,7 +167,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
     const tiltX = (relativeX - 0.5) * 20;
     const tiltY = (relativeY - 0.5) * -20;
 
-    const newTrasform = `perspective(200px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
+    const newTrasform = `perspective(300px) rotateX(${tiltY}deg) rotateY(${tiltX}deg)`;
 
     setTransformStyle(newTrasform);
   };
@@ -183,9 +183,9 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   const handleMouseLeave = () => {
     gsap.to(".mask-clip-path", {
       scale: 0,
-      ease: "power1.inOut",
-      duration: 2,
-      delay: 0.5
+      ease: "power3.inOut",
+      duration: 2.5,
+      // delay: 0.5
     });
   };
 
@@ -222,17 +222,19 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
                   className="absolute-center z-40 size-28 md:size-60 filter-[url(#flt_tag)]"
                 >
                   <div className="size-28 mask-clip-path sm:scale-0 md:size-60">
-                    <video
-                      ref={nextVdRef}
-                      src={getVideoSrc(upcomingVideoIndex)}
-                      playsInline
-                      webkit-playsInline="true"
-                      loop
-                      muted
-                      id="current-video"
-                      className="object-cover size-full"
-                      onLoadedData={() => handleVideoLoad()}
-                    />
+                    <div className="relative w-full h-full">
+                      <video
+                        ref={nextVdRef}
+                        src={getVideoSrc(upcomingVideoIndex)}
+                        playsInline
+                        webkit-playsInline="true"
+                        loop
+                        muted
+                        id="current-video"
+                        className="absolute-center w-full min-w-dvw h-full min-h-dvh object-cover"
+                        onLoadedData={() => handleVideoLoad()}
+                      />
+                    </div>
                   </div>
                   <RoundedCorners />
                 </div>
@@ -242,8 +244,10 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
                 >
                   <div
                     id="hero-border"
-                    className="mask-clip-path sm:scale-0 origin-center bg-black size-[115px] md:size-[243px]"
-                  />
+                    className="mask-clip-path sm:scale-0 origin-center size-[115px] md:size-[243px]"
+                  >
+                    <div className=" bg-black object-cover size-full" />
+                  </div>
                   <RoundedCorners />
                 </div>
               </div>
@@ -264,11 +268,6 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
             <div className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75">
               {splitAndPreserveTags(headings[currentIndex])}
             </div>
-            {/* <h1
-              id="hero-text"
-              className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75"
-              dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
-            /> */}
 
             <video
               src={getVideoSrc(lastVid)}
@@ -282,11 +281,6 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
               onLoadedData={() => handleVideoLoad()}
             />
           </div>
-
-          {/* <h1
-            className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75"
-            dangerouslySetInnerHTML={{ __html: headings[currentIndex] }}
-          /> */}
 
           <div className="absolute left-0 top-0 z-50">
             <div className="mt-24 px-5 sm:px-10">
@@ -302,7 +296,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
                 id="watch-trailer"
                 title="Watch Trailer"
                 leftIcon={<TiLocationArrow />}
-                containerClass="bg-yellow-300 flex-center gap-1"
+                containerClass="bg-yellow-100 flex-center gap-1"
               />
             </div>
           </div>
