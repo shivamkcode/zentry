@@ -11,7 +11,7 @@ const Gallery = () => {
         trigger: "#gallery",
         start: "top top",
         end: "+=10000 center",
-        scrub: true,
+        scrub: 2,
         pin: true,
       },
     });
@@ -46,8 +46,8 @@ const Gallery = () => {
 
     tl.to("#gallery-3-img", {
       transformOrigin: "center right",
-      width: windowWidth > 600 ? "177vw" : '177vh',
-      height: windowWidth > 600 ? "100vw" : '100vh',
+      width: windowWidth > 800 ? "177vw" : '177vh',
+      height: windowWidth > 800 ? "100vw" : '100vh',
       delay: 1,
       ease: "power1.inOut",
       duration: 15,

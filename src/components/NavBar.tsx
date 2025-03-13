@@ -234,7 +234,7 @@ const NavBar = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
               </span>
               <a
                 href={`#${navItems[index].toLowerCase()}`}
-                className="nav-link text-black special-font text-6xl uppercase leading-[.8] sm:px-32 md:text-[6rem]"
+                className="nav-link text-black special-font text-7xl uppercase leading-[.8]"
                 dangerouslySetInnerHTML={{ __html: item }}
               />
             </h1>
