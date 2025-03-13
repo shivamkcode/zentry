@@ -11,7 +11,6 @@ const Gallery = () => {
         end: "+=1200 center",
         scrub: 2,
         pin: true,
-        markers: true,
       },
     });
 
@@ -48,7 +47,7 @@ const Gallery = () => {
   return (
     <div id="gallery" className="h-dvh w-dvw overflow-hidden relative bg-black">
       <img
-        src="/img/gallery-2.webp"
+        src="/img/gallery-1.webp"
         className="absolute-center object-cover min-h-dvh min-w-dvw"
       />
       <div className="flex flex-col text-center gap-4 mt-10">
@@ -62,7 +61,7 @@ const Gallery = () => {
         className="absolute-center size-28 overflow-hidden border rounded-lg"
       >
         <img
-          src="/img/gallery-3.webp"
+          src="/img/gallery-2.webp"
           className="absolute-center object-cover min-h-dvh min-w-dvw"
         />
       </div>
@@ -71,8 +70,17 @@ const Gallery = () => {
         className="absolute-center size-0 overflow-hidden rounded-lg"
       >
         <img
-          src="/img/gallery-5.webp"
+          src="/img/gallery-3.webp"
           className="absolute-center object-cover min-h-dvh min-w-dvw"
+        />
+      </div>
+      <div
+        id="gallery-3"
+        className="absolute-center size-0 overflow-hidden rounded-lg"
+      >
+        <img
+          src="/img/gallery-4.webp"
+          className="absolute-center object-cover min-h-[300dvh] min-w-[300dvw]"
         />
       </div>
     </div>
