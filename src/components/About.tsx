@@ -17,7 +17,7 @@ const About = () => {
       scrollTrigger: {
         trigger: "#clip",
         start: "top top",
-        end: "+=800 center",
+        end: "+=1800 center",
         scrub: true,
         pin: true,
       },
@@ -27,10 +27,7 @@ const About = () => {
       clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
       width: "100vw",
       height: "100vh",
-    });
-
-    clipAnimation.to(".about", {
-      filter: 'none'
+      duration: 20
     });
 
     gsap.from("#clip", {

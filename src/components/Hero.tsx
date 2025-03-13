@@ -185,7 +185,6 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
       scale: 0,
       ease: "power3.inOut",
       duration: 2.5,
-      // delay: 0.5
     });
   };
 

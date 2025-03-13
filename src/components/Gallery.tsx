@@ -3,13 +3,15 @@ import gsap from "gsap";
 import AnimatedTitle from "./AnimatedTitle";
 
 const Gallery = () => {
+    const windowWidth = window.innerWidth
+
   useGSAP(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: "#gallery",
         start: "top top",
-        end: "+=1200 center",
-        scrub: 2,
+        end: "+=10000 center",
+        scrub: true,
         pin: true,
       },
     });
@@ -17,6 +19,7 @@ const Gallery = () => {
     tl.to("#gallery-1", {
       width: "100%",
       height: "100%",
+      border: 'none',
       borderRadius: 0,
       delay: 1,
       ease: "power1.inOut",
@@ -30,6 +33,24 @@ const Gallery = () => {
       delay: 1,
       ease: "power1.inOut",
       duration: 5,
+    });
+
+    tl.to("#gallery-3", {
+      width: "100%",
+      height: "100%",
+      borderRadius: 0,
+        delay: 1,
+      ease: "power1.inOut",
+      duration: 10,
+    });
+
+    tl.to("#gallery-3-img", {
+      transformOrigin: "center right",
+      width: windowWidth > 600 ? "177vw" : '177vh',
+      height: windowWidth > 600 ? "100vw" : '100vh',
+      delay: 1,
+      ease: "power1.inOut",
+      duration: 15,
     });
 
     gsap.from("#uni", {
@@ -51,7 +72,10 @@ const Gallery = () => {
         className="absolute-center object-cover min-h-dvh min-w-dvw"
       />
       <div className="flex flex-col text-center gap-4 mt-10">
-        <h1 id="uni" className="font-general text-sm uppercase md:text-[10px] text-white">
+        <h1
+          id="uni"
+          className="font-general text-sm uppercase md:text-[10px] text-white"
+        >
           Our universe in a nutshell
         </h1>
         <AnimatedTitle title="<b>Gallery</b>" containerClass="" />
@@ -74,14 +98,16 @@ const Gallery = () => {
           className="absolute-center object-cover min-h-dvh min-w-dvw"
         />
       </div>
-      <div
-        id="gallery-3"
-        className="absolute-center size-0 overflow-hidden rounded-lg"
-      >
-        <img
-          src="/img/gallery-4.webp"
-          className="absolute-center object-cover min-h-[300dvh] min-w-[300dvw]"
-        />
+      <div id="gallery-3" className="absolute-center overflow-hidden size-0 rounded-lg">
+        <div className="absolute-center">
+          <div id="gallery-3-img" className="relative w-[350vh] h-[200vh] md:w-[350vw] md:[200vh]">
+            <img
+              
+              src="/img/gallery-4.webp"
+              className="absolute-center w-full h-full "
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
