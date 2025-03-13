@@ -7,6 +7,7 @@ import Hero from './components/Hero';
 import NavBar from './components/NavBar';
 import Story from './components/Story';
 import './index.css';
+import Gallery from './components/Gallery';
 
 const App = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -18,6 +19,7 @@ const App = () => {
       <About />
       <Features />
       <Story />
+      <Gallery />
       <Contact />
       <Footer />
     </main>
