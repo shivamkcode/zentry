@@ -27,7 +27,7 @@ const Universe = () => {
         end: '+=3000 center',
         pin:true,
         scrub: true,
-        markers: true,
+        // markers: true,
         onUpdate: (self) => {
           if (videoElement) {
             playhead.time = self.progress * videoElement.duration;
@@ -49,7 +49,7 @@ const Universe = () => {
         src="/videos/wall-video2.mp4"
         plays-inline="true"
         webkit-playsinline="true"
-        preload="metadata"
+        // preload="metadata"
         muted
       ></video>
     </div>

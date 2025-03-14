@@ -41,44 +41,68 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0);
   const [transformStyle, setTransformStyle] = useState("");
-  const itemRef = useRef<HTMLDivElement>(null);
   const [lastVid, setLastVid] = useState(currentIndex);
 
   const totalVideos = 4;
+  const itemRef = useRef<HTMLDivElement>(null);
   const nextVdRef = useRef<HTMLVideoElement>(null);
+  const whooshSoundRef = useRef<HTMLAudioElement>(null);
+  const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
+  const currentVideoRef = useRef<HTMLVideoElement>(null);
+
 
   const handleVideoLoad = () => {
     setLoadedVideos((prevVideos) => prevVideos + 1);
   };
 
-  const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
+  const playWhooshSound = () => {
+    if (whooshSoundRef.current) {
+      whooshSoundRef.current.currentTime = 0;
+      const playPromise = whooshSoundRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setTimeout(() => {
+              whooshSoundRef.current?.pause();
+              if (whooshSoundRef.current) {
+                whooshSoundRef.current.currentTime = 0;
+              }
+            }, 1000);
+          })
+          .catch((error) => {
+            console.log("Whoosh sound failed to play:", error);
+          });
+      }
+    }
+  };
 
   const handleMiniVDClick = () => {
+    if (!nextVdRef.current || !currentVideoRef.current) return;
+
+    playWhooshSound();
+    nextVdRef.current.currentTime = 0;
+    nextVdRef.current.play().catch(() => {});
     setHasClicked(true);
     setCurrentIndex(upcomingVideoIndex);
-    if (!isAudioPlaying) {
-      setIsAudioPlaying(true);
-    }
+    setTimeout(() => {
+      if (!isAudioPlaying) {
+        setIsAudioPlaying(true);
+      }
+    }, 1000);
     setTransformStyle("");
   };
 
   useEffect(() => {
     setTimeout(() => {
       setLastVid(currentIndex);
-    }, 500);
+    }, 600);
   }, [currentIndex]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
-
-    if (loadedVideos === 3) {
-      clearTimeout(timer);
+    if (loadedVideos === totalVideos - 1) {
       setIsLoading(false);
     }
 
-    return () => clearTimeout(timer);
   }, [loadedVideos]);
 
   useGSAP(
@@ -91,7 +115,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
           scale: 1,
           width: "100%",
           height: "100%",
-          duration: 0.8,
+          duration: 1,
           ease: "power1.inOut",
           onStart: () => {
             if (nextVdRef.current) {
@@ -201,6 +225,12 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
           </div>
         </div>
       )}
+      <audio
+        ref={whooshSoundRef}
+        src="/audio/whoosh.mp3"
+        preload="auto"
+        className="hidden"
+      />
       <div className="relative h-dvh w-screen overflow-x-hidden">
         <div
           id="video-frame"
@@ -225,13 +255,12 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
                       <video
                         ref={nextVdRef}
                         src={getVideoSrc(upcomingVideoIndex)}
-                        playsInline
-                        webkit-playsInline="true"
                         loop
                         muted
+                        autoPlay
                         id="current-video"
                         className="absolute-center w-full min-w-dvw h-full min-h-dvh object-cover"
-                        onLoadedData={() => handleVideoLoad()}
+                        onLoadedData={handleVideoLoad}
                       />
                     </div>
                   </div>
@@ -253,15 +282,15 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
             </div>
 
             <video
-              ref={nextVdRef}
+              ref={currentVideoRef}
               src={getVideoSrc(currentIndex)}
-              playsInline
-              webkit-playsInline="true"
+              autoPlay
+              // poster="/img/entrance.webp"
               loop
               muted
               id="next-video"
               className="absolute-center invisible z-20 size-28 md:size-60 object-cover object-center rounded-lg"
-              onLoadedData={() => handleVideoLoad()}
+              onLoadedData={handleVideoLoad}
             />
 
             <div className="hero-heading special-font absolute bottom-5 right-5 z-50 text-blue-75">
@@ -270,14 +299,12 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
 
             <video
               src={getVideoSrc(lastVid)}
-              playsInline
-              webkit-playsInline="true"
               autoPlay
               loop
               muted
               id="main-video"
               className="absolute left-0 top-0 size-full object-cover object-center"
-              onLoadedData={() => handleVideoLoad()}
+              onLoadedData={handleVideoLoad}
             />
           </div>
 
