@@ -91,7 +91,8 @@ const Gallery = () => {
       </div>
       <div
         id="gallery-2"
-        className="absolute-center size-0 overflow-hidden rounded-lg"
+        style={{ borderRadius: '1000px'}}
+        className="absolute-center size-0 overflow-hidden"
       >
         <img
           src="/img/gallery-3.webp"
@@ -100,7 +101,7 @@ const Gallery = () => {
       </div>
       <div id="gallery-3" className="absolute-center overflow-hidden size-0 rounded-lg">
         <div className="absolute-center">
-          <div id="gallery-3-img" className="relative w-[350vh] h-[200vh] md:w-[350vw] md:[200vh]">
+          <div id="gallery-3-img" className="relative w-[350vh] h-[200vh] md:w-[350vw] md:h-[200vw]">
             <img
               
               src="/img/gallery-4.webp"
