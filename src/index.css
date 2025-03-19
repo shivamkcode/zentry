@@ -57,7 +57,6 @@ body {
 
 @utility clip-border {
   clip-path: polygon(6% 0%, 82% 8%, 92% 98%, 7% 100%);
-  /* filter: url("#flt_tag"); */
 }
 
 @utility special-font {
@@ -163,8 +162,48 @@ body {
   }
 }
 
-.hover\:animation-scale:hover {
+@keyframes clipAnimation {
+  0% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); /* Square */
+  }
+  10% {
+    clip-path: polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%); /* Slight inward square */
+  }
+  20% {
+    clip-path: polygon(10% 0%, 90% 0%, 100% 90%, 0% 100%); /* Slight inward tilt */
+  }
+  30% {
+    clip-path: polygon(20% 10%, 80% 10%, 100% 80%, 0% 90%); /* Transition to a curved inward shape */
+  }
+  40% {
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); /* Diamond */
+  }
+  50% {
+    clip-path: polygon(40% 5%, 60% 5%, 90% 90%, 10% 90%); /* Slight contraction of the diamond */
+  }
+  60% {
+    clip-path: polygon(25% 10%, 75% 0%, 100% 75%, 0% 90%); /* Tilted inward shape */
+  }
+  70% {
+    clip-path: polygon(37% 5%, 63% 5%, 95% 80%, 5% 95%); /* Asymmetric shape */
+  }
+  80% {
+    clip-path: polygon(10% 0%, 90% 10%, 100% 90%, 0% 100%); /* Returning diamond tilt */
+  }
+  90% {
+    clip-path: polygon(5% 5%, 95% 5%, 95% 95%, 5% 95%); /* Re-expand slightly */
+  }
+  100% {
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%); /* Back to square */
+  }
+}
+
+.animation-scale {
   animation: scaleAnimation 2s infinite ease-in-out;
+}
+
+.clip-animation {
+  animation: clipAnimation 30s infinite ease-in-out;
 }
 
 @keyframes indicator-line {

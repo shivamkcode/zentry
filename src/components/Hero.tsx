@@ -242,13 +242,13 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
               ref={itemRef}
               className="absolute-center z-[100] w-[60vw] h-[60vh] origin-center overflow-hidden  cursor-pointer"
             >
-              <div className="relative transition-all duration-500 ease-in hover:animation-scale cursor-pointer size-full">
+              <div className="relative transition-all duration-500 ease-in animation-scale cursor-pointer size-full">
                 <div
                   onClick={handleMiniVDClick}
                   style={{ transform: transformStyle }}
                   className="absolute-center z-40 size-28 md:size-60 filter-[url(#flt_tag)]"
                 >
-                  <div className="size-28 mask-clip-path sm:scale-0 md:size-60">
+                  <div className="size-28 mask-clip-path sm:scale-0 md:size-60 clip-animation">
                     <div className="relative w-full h-full">
                       <video
                         ref={nextVdRef}
@@ -272,7 +272,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
                 >
                   <div
                     id="hero-border"
-                    className="mask-clip-path sm:scale-0 origin-center size-[115px] md:size-[243px]"
+                    className="mask-clip-path sm:scale-0 origin-center size-[115px] md:size-[243px] clip-animation"
                   >
                     <div className=" bg-black object-cover size-full" />
                   </div>
