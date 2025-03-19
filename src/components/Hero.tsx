@@ -50,7 +50,6 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   const upcomingVideoIndex = (currentIndex % totalVideos) + 1;
   const currentVideoRef = useRef<HTMLVideoElement>(null);
 
-
   const handleVideoLoad = () => {
     setLoadedVideos((prevVideos) => prevVideos + 1);
   };
@@ -95,14 +94,13 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   useEffect(() => {
     setTimeout(() => {
       setLastVid(currentIndex);
-    }, 600);
+    }, 800);
   }, [currentIndex]);
 
   useEffect(() => {
     if (loadedVideos === totalVideos - 1) {
       setIsLoading(false);
     }
-
   }, [loadedVideos]);
 
   useGSAP(
@@ -217,7 +215,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
   return (
     <>
       {isLoading && (
-        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-400">
+        <div className="flex-center fixed top-0 left-0 z-[100] h-screen w-screen overflow-y-hidden bg-blue-50">
           <div className="three-body">
             <div className="three-body__dot" />
             <div className="three-body__dot" />
@@ -231,10 +229,10 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
         preload="auto"
         className="hidden"
       />
-      <div className="relative h-dvh w-screen overflow-x-hidden">
+      <div className="relative h-[100vh] w-screen overflow-x-hidden">
         <div
           id="video-frame"
-          className="relative z-10 h-dvh w-screen overflow-hidden"
+          className="relative z-10 h-[100vh] w-screen overflow-hidden"
         >
           <div>
             <div
@@ -256,6 +254,8 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
                         ref={nextVdRef}
                         src={getVideoSrc(upcomingVideoIndex)}
                         loop
+                        playsInline
+                        poster={`/img/hero-${upcomingVideoIndex}.webp`}
                         muted
                         autoPlay
                         id="current-video"
@@ -285,7 +285,8 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
               ref={currentVideoRef}
               src={getVideoSrc(currentIndex)}
               autoPlay
-              // poster="/img/entrance.webp"
+              poster={`/img/hero-${currentIndex}.webp`}
+              playsInline
               loop
               muted
               id="next-video"
@@ -302,6 +303,8 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
               autoPlay
               loop
               muted
+              poster={`/img/hero-${currentIndex}.webp`}
+              playsInline
               id="main-video"
               className="absolute left-0 top-0 size-full object-cover object-center"
               onLoadedData={handleVideoLoad}

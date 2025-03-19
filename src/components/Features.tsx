@@ -73,7 +73,6 @@ const BentoCard = ({ src, title, description }: BentoCardProps) => {
       <video
         src={src}
         playsInline
-        webkit-playsInline="true"
         loop
         muted
         autoPlay
@@ -176,7 +175,6 @@ const Features = () => {
             <video
               src="videos/feature-5.mp4"
               playsInline
-              webkit-playsInline="true"
               loop
               muted
               autoPlay

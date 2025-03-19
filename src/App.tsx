@@ -1,14 +1,15 @@
-import { useState } from "react";
-import About from "./components/About";
-import Contact from "./components/Contact";
-import Features from "./components/Features";
-import Footer from "./components/Footer";
-import Hero from "./components/Hero";
+import React, { useState, Suspense } from "react";
 import NavBar from "./components/NavBar";
-import Story from "./components/Story";
+import Hero from "./components/Hero";
 import "./index.css";
-import Gallery from "./components/Gallery";
-import Universe from "./components/Universe";
+
+const About = React.lazy(() => import("./components/About"));
+const Features = React.lazy(() => import("./components/Features"));
+const Story = React.lazy(() => import("./components/Story"));
+const Gallery = React.lazy(() => import("./components/Gallery"));
+const Universe = React.lazy(() => import("./components/Universe"));
+const Contact = React.lazy(() => import("./components/Contact"));
+const Footer = React.lazy(() => import("./components/Footer"));
 
 const App = () => {
   const [isAudioPlaying, setIsAudioPlaying] = useState(false);
@@ -23,13 +24,16 @@ const App = () => {
         isAudioPlaying={isAudioPlaying}
         setIsAudioPlaying={setIsAudioPlaying}
       />
-      <About />
-      <Features />
-      <Story />
-      <Gallery />
-      <Universe />
-      <Contact />
-      <Footer />
+      
+      <Suspense fallback={<div>Loading...</div>}>
+        <About />
+        <Features />
+        <Story />
+        <Gallery />
+        <Universe />
+        <Contact />
+        <Footer />
+      </Suspense>
     </main>
   );
 };
