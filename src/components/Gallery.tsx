@@ -11,7 +11,7 @@ const Gallery = () => {
         trigger: "#gallery",
         start: "top top",
         end: "+=10000 center",
-        scrub: 0.8,
+        scrub: 0.5,
         pin: true,
         pinSpacing: true,
       },
@@ -178,9 +178,9 @@ const Gallery = () => {
         <div className="absolute-center w-screen md:w-[60vw] text-center">
           <AnimatedTitle
             title="At the h<b>e</b>art of zentry, the secret to shape the fabric of all realms is u<b>n</b>veiled"
-            containerClass="text-4xl text-black gallery-1-text"
+            containerClass="text-4xl tracking-wider text-black gallery-1-text"
           />
-          <h4 className="font-general text-sm uppercase md:text-[14px] mt-4 text-black gallery-1-text">
+          <h4 className="font-general text-sm uppercase md:text-[14px] mt-4 gallery-1-text">
             A place for those who dare
           </h4>
         </div>
@@ -222,7 +222,7 @@ const Gallery = () => {
               className="absolute-center w-full h-full "
               loading="lazy"
             />
-            <div className="absolute-center h-screen flex flex-col justify-between py-10 font-bold  ">
+            <div className="absolute-center h-screen flex flex-col justify-between py-10 font-bold text-center ">
               <h4 className="font-general text-sm uppercase md:text-[10px] gallery-3-text-2 text-white">
                 Hidden depths of the pillar
               </h4>
