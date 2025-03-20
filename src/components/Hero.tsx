@@ -240,7 +240,7 @@ const Hero = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               ref={itemRef}
-              className="absolute-center z-[100] w-[60vw] h-[60vh] origin-center overflow-hidden  cursor-pointer"
+              className="absolute-center z-[100] w-[60vw] h-[60vh] origin-center overflow-hidden cursor-pointer"
             >
               <div className="relative transition-all duration-500 ease-in animation-scale cursor-pointer size-full">
                 <div

@@ -159,7 +159,13 @@ const NavBar = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
       <header className="absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
+            <a href="/">
+              <img
+                src="/logo.png"
+                alt="logo"
+                className="w-10 bg-blue-50 rounded-full"
+              />
+            </a>
             <Button
               id="product-button"
               title="Products"
@@ -185,7 +191,7 @@ const NavBar = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
             />
           )}
 
-          <div className=" h-full items-center hidden md:flex">
+          <div className="h-full items-center hidden md:flex">
             <div>
               {navItems.map((item) => (
                 <a
@@ -228,13 +234,17 @@ const NavBar = ({ isAudioPlaying, setIsAudioPlaying }: isPlayingProps) => {
       >
         <div className="flex flex-col gap-6">
           {navItems2.map((item, index) => (
-            <h1 key={item} onClick={handleSideNavClose} className="flex gap-6 w-fit hover:opacity-30 hover:scale-99">
+            <h1
+              key={item}
+              onClick={handleSideNavClose}
+              className="flex gap-6 w-fit hover:opacity-30 hover:scale-99"
+            >
               <span className="nav-span font-general text-xs">
                 0{index + 1}
               </span>
               <a
                 href={`#${navItems[index].toLowerCase()}`}
-                className="nav-link text-black special-font text-7xl uppercase leading-[.8]"
+                className="nav-link text-black special-font text-8xl uppercase leading-[.8]"
                 dangerouslySetInnerHTML={{ __html: item }}
               />
             </h1>
